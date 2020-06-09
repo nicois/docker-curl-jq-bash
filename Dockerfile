@@ -1,2 +1,9 @@
-FROM alpine:latest
-RUN apk add docker curl jq bash
+FROM docker:latest
+
+RUN \
+	apk -Uuv add make gcc groff less \
+		musl-dev libffi-dev openssl-dev \
+		python2-dev py-pip jq curl && \
+	pip install awscli docker-compose && \
+	apk --purge -v del py-pip && \
+	rm /var/cache/apk/*
